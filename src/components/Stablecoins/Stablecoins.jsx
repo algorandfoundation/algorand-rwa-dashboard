@@ -238,7 +238,7 @@ const Stablecoins = () => {
           showStacked: false,
           valuePrefix: '',
           bars: [
-            { key: 'total', name: 'Active Addresses', color: activeColor }
+            { key: 'total', name: 'Monthly Active Addresses', color: activeColor }
           ]
         };
       case 'volume':
