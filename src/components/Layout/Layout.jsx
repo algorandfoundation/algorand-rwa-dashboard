@@ -19,7 +19,7 @@ const tabs = [
 
 const Layout = () => {
     const [theme, setTheme] = useState('light');
-    
+
 
     const darkMode = theme === 'dark';
 

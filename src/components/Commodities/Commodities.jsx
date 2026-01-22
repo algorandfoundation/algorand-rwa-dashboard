@@ -207,9 +207,9 @@ const Commodities = () => {
 
   // Asset type colors
   const assetColors = {
-    gold$: '#2d2df1',
-    silver$: '#17cac6',
-    gold: '#ffffffff'
+    gold$: 'var(--asset-gold1)',
+    silver$: 'var(--asset-silver)',
+    gold: 'var(--asset-gold2)'
   };
   const getChartConfig = () => {
     switch (activeChart) {
@@ -351,14 +351,15 @@ const Commodities = () => {
                   tickLine={false}
                   axisLine={false}
                   tickFormatter={(val) => val.slice(0, 7)}
-                  label={{ 
-                    value: 'Date', 
-                    position: 'insideBottom', 
-                    offset: -15, 
-                    style: { 
-                      fill: 'var(--text-secondary)', 
-                      textAnchor: 'middle' 
-                    } }}
+                  label={{
+                    value: 'Date',
+                    position: 'insideBottom',
+                    offset: -15,
+                    style: {
+                      fill: 'var(--text-secondary)',
+                      textAnchor: 'middle'
+                    }
+                  }}
                 />
                 <YAxis
                   yAxisId="left"
@@ -417,8 +418,8 @@ const Commodities = () => {
                       chartConfig.showStacked && chartConfig.bars.length > 1
                         ? `url(#barGradient-${bar.key}-${activeChart})`
                         : chartConfig.bars.length === 1
-                        ? `url(#barGradient-${activeChart})`
-                        : bar.color
+                          ? `url(#barGradient-${activeChart})`
+                          : bar.color
                     }
                     stackId={chartConfig.showStacked && chartConfig.bars.length > 1 ? 'stack' : undefined}
                     radius={

@@ -248,14 +248,15 @@ const Certificates = () => {
                   tickLine={false}
                   axisLine={false}
                   tickFormatter={(val) => val.slice(0, 7)}
-                  label={{ 
-                    value: 'Date', 
-                    position: 'insideBottom', 
-                    offset: -15, 
-                    style: { 
-                      fill: 'var(--text-secondary)', 
-                      textAnchor: 'middle' 
-                    } }}
+                  label={{
+                    value: 'Date',
+                    position: 'insideBottom',
+                    offset: -15,
+                    style: {
+                      fill: 'var(--text-secondary)',
+                      textAnchor: 'middle'
+                    }
+                  }}
                 />
                 <YAxis
                   yAxisId="left"
@@ -313,9 +314,9 @@ const Certificates = () => {
                   type="monotone"
                   dataKey="cumulative"
                   name={chartConfig.cumulativeName}
-                  stroke={'#17cac6'}
+                  stroke={'var(--accent-secondary)'}
                   strokeWidth={3}
-                  dot={{ r: 4, fill: 'var(--bg-card)', stroke: '#17cac6', strokeWidth: 2 }}
+                  dot={{ r: 4, fill: 'var(--bg-card)', stroke: 'var(--accent-secondary)', strokeWidth: 2 }}
                   activeDot={{ r: 6 }}
                 />
               </ComposedChart>
