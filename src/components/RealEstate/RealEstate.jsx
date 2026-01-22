@@ -236,7 +236,7 @@ const RealEstate = () => {
           showStacked: false,
           valuePrefix: '',
           bars: [
-            { key: 'total', name: 'Active Addresses', color: activeColor }
+            { key: 'total', name: 'Monthly Active Addresses', color: activeColor }
           ]
         };
       case 'volume':
@@ -346,14 +346,15 @@ const RealEstate = () => {
                   tickLine={false}
                   axisLine={false}
                   tickFormatter={(val) => val.slice(0, 7)}
-                  label={{ 
-                    value: 'Date', 
-                    position: 'insideBottom', 
-                    offset: -15, 
-                    style: { 
-                      fill: 'var(--text-secondary)', 
-                      textAnchor: 'middle' 
-                    } }}
+                  label={{
+                    value: 'Date',
+                    position: 'insideBottom',
+                    offset: -15,
+                    style: {
+                      fill: 'var(--text-secondary)',
+                      textAnchor: 'middle'
+                    }
+                  }}
                 />
                 <YAxis
                   yAxisId="left"

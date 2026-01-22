@@ -181,19 +181,19 @@ const Overview = () => {
                 };
             case 'addresses':
                 return {
-                    leftLabel: 'Monthly Active',
-                    rightLabel: 'Total Unique',
-                    monthlyName: 'Monthly Active',
-                    cumulativeName: 'Total Unique',
+                    leftLabel: 'Monthly Active Addresses',
+                    rightLabel: 'Total Unique Addresses',
+                    monthlyName: 'Monthly Active Addresses',
+                    cumulativeName: 'Total Unique Addresses',
                     valuePrefix: '',
                     valueSuffix: ''
                 };
             case 'volume':
                 return {
-                    leftLabel: 'Monthly Volume ($)',
-                    rightLabel: 'Total Volume ($)',
-                    monthlyName: 'Monthly Volume',
-                    cumulativeName: 'Total Volume',
+                    leftLabel: 'Monthly USDC Volume ($)',
+                    rightLabel: 'Total USDC Volume ($)',
+                    monthlyName: 'Monthly USDC Volume',
+                    cumulativeName: 'Total USDC Volume',
                     valuePrefix: '$',
                     valueSuffix: ''
                 };
