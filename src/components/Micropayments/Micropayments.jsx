@@ -205,8 +205,8 @@ const Micropayments = () => {
         };
       case 'addresses':
         return {
-          leftLabel: 'Monthly Active',
-          rightLabel: 'Total Unique',
+          leftLabel: 'Monthly Active Addresses',
+          rightLabel: 'Total Unique Addresses',
           hasRightAxis: true,
           showStacked: true,
           valuePrefix: '',
@@ -345,7 +345,7 @@ const Micropayments = () => {
                     value: chartConfig.leftLabel,
                     position: 'insideLeft',
                     angle: -90,
-                    offset: -10,
+                    offset: 0,
                     style: { fill: 'var(--text-secondary)', textAnchor: 'middle' }
                   }}
                 />
@@ -361,7 +361,7 @@ const Micropayments = () => {
                       value: chartConfig.rightLabel,
                       position: 'insideRight',
                       angle: 90,
-                      offset: -10,
+                      offset: 0,
                       style: { fill: 'var(--text-secondary)', textAnchor: 'middle' }
                     }}
                   />
