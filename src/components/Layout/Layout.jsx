@@ -1,5 +1,6 @@
+
 import React, { useEffect, useState } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import './Layout.css';
 import classNames from 'classnames';
 import Footer from '../Footer/Footer';
@@ -19,7 +20,7 @@ const tabs = [
 
 const Layout = () => {
     const [theme, setTheme] = useState('light');
-
+    const location = useLocation();
 
     const darkMode = theme === 'dark';
 
@@ -97,7 +98,7 @@ const Layout = () => {
             <main className="main-content container">
                 <Outlet />
             </main>
-            <Footer />
+            <Footer activeTab={location.pathname} />
         </div>
     );
 };
