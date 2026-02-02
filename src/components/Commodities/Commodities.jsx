@@ -164,7 +164,7 @@ const Commodities = () => {
   const kpis = [
     {
       id: 'market_cap',
-      label: 'Stablecoins Market Cap',
+      label: 'Commodities Market Cap',
       value: `$${formatCompactNumber(mcKpi.value)}`,
       delta: mcKpi.delta,
       color: 'var(--accent-primary)',
@@ -188,7 +188,7 @@ const Commodities = () => {
     },
     {
       id: 'holders',
-      label: 'Total Stablecoin Holders',
+      label: 'Total Commodities Holders',
       value: formatCompactNumber(holderKpi.value),
       delta: null,
       color: 'var(--accent-primary)',
