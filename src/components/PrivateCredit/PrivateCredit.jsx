@@ -31,13 +31,24 @@ const PrivateCredit = () => {
           deposits: import.meta.env.VITE_PRIVATECREDIT_DEPOSITS,
         };
 
+        const processMonthlyData = (data) => {
+          const monthlyMap = new Map();
+          data.forEach(item => {
+            const month = item.date.substring(0, 7);
+            if (!monthlyMap.has(month) || item.date > monthlyMap.get(month).date) {
+              monthlyMap.set(month, item);
+            }
+          });
+          return Array.from(monthlyMap.values()).sort((a, b) => a.date.localeCompare(b.date));
+        };
+
         const parseCSV = async (url, type) => {
           if (!url) return [];
           const response = await fetch(url);
           if (!response.ok) throw new Error(`Failed to fetch ${type}`);
           const text = await response.text();
           const rows = text.split('\n').slice(1);
-          return rows
+          const parsed = rows
             .map(row => {
               const cols = row.split(',');
 
@@ -58,6 +69,8 @@ const PrivateCredit = () => {
               return null;
             })
             .filter(Boolean);
+
+          return processMonthlyData(parsed);
         };
 
         const [depositsData, borrowsData] = await Promise.allSettled([
@@ -85,7 +98,7 @@ const PrivateCredit = () => {
 
     const lastIndex = arr.length - 1;
     const current = arr[lastIndex].total;
-    const previous = lastIndex > 0 ? arr[lastIndex - 30].total : null;
+    const previous = lastIndex > 0 ? arr[lastIndex - 1].total : null;
 
     const delta = previous ? (current / previous) - 1 : null;
 
@@ -166,7 +179,7 @@ const PrivateCredit = () => {
           hasRightAxis: false,
           showStacked: true,
           valuePrefix: '$',
-          area: [
+          bars: [
             { key: 'total', name: 'Deposited Amount', color: activeColor }
           ]
         };
@@ -177,7 +190,7 @@ const PrivateCredit = () => {
           hasRightAxis: false,
           showStacked: false,
           valuePrefix: '$',
-          area: [
+          bars: [
             { key: 'total', name: 'Borrowed Amount', color: activeColor }
           ]
         };
@@ -246,34 +259,19 @@ const PrivateCredit = () => {
             <ResponsiveContainer width="100%" height={400}>
               <ComposedChart data={currentChartData}>
                 <defs>
-                  {chartConfig.showStacked && chartConfig.area.length > 1 ? (
-                    // Gradients for stacked areas
-                    chartConfig.area.map((bar) => (
-                      <linearGradient
-                        key={`gradient-${bar.key}-${activeChart}`}
-                        id={`areaGradient-${bar.key}-${activeChart}`}
-                        x1="0"
-                        y1="0"
-                        x2="0"
-                        y2="1"
-                      >
-                        <stop offset="0%" stopColor={bar.color} stopOpacity={0.4} />
-                        <stop offset="100%" stopColor={bar.color} stopOpacity={0.05} />
-                      </linearGradient>
-                    ))
-                  ) : chartConfig.area.length > 0 ? (
-                    // Single area gradient
+                  {chartConfig.bars.map((bar) => (
                     <linearGradient
-                      id={`areaGradient-${activeChart}`}
+                      key={`gradient-${bar.key}-${activeChart}`}
+                      id={`barGradient-${bar.key}-${activeChart}`}
                       x1="0"
                       y1="0"
                       x2="0"
                       y2="1"
                     >
-                      <stop offset="0%" stopColor={activeColor} stopOpacity={0.4} />
-                      <stop offset="100%" stopColor={activeColor} stopOpacity={0.05} />
+                      <stop offset="0%" stopColor={bar.color} stopOpacity={0.8} />
+                      <stop offset="95%" stopColor={bar.color} stopOpacity={0.1} />
                     </linearGradient>
-                  ) : null}
+                  ))}
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-subtle)" />
                 <XAxis
@@ -282,14 +280,15 @@ const PrivateCredit = () => {
                   tickLine={false}
                   axisLine={false}
                   tickFormatter={(val) => val.slice(0, 7)}
-                  label={{ 
-                    value: 'Date', 
-                    position: 'insideBottom', 
-                    offset: -15, 
-                    style: { 
-                      fill: 'var(--text-secondary)', 
-                      textAnchor: 'middle' 
-                    } }}
+                  label={{
+                    value: 'Date',
+                    position: 'insideBottom',
+                    offset: -15,
+                    style: {
+                      fill: 'var(--text-secondary)',
+                      textAnchor: 'middle'
+                    }
+                  }}
                 />
                 <YAxis
                   yAxisId="left"
@@ -337,24 +336,16 @@ const PrivateCredit = () => {
                 />
                 <Legend wrapperStyle={{ paddingTop: '20px', color: 'var(--text-secondary)' }} />
 
-                {/* Areas - stacked or single */}
-                {chartConfig.area.map((bar, index) => (
-                  <Area
+                {/* Bars - stacked or single */}
+                {chartConfig.bars.map((bar, index) => (
+                  <Bar
                     key={bar.key}
                     yAxisId="left"
-                    type="monotone"
                     dataKey={bar.key}
                     name={bar.name}
-                    fill={
-                      chartConfig.showStacked && chartConfig.area.length > 1
-                        ? `url(#areaGradient-${bar.key}-${activeChart})`
-                        : chartConfig.area.length === 1
-                        ? `url(#areaGradient-${activeChart})`
-                        : bar.color
-                    }
-                    stroke={bar.color}
-                    strokeWidth={2}
-                    stackId={chartConfig.showStacked && chartConfig.area.length > 1 ? 'stack' : undefined}
+                    fill={`url(#barGradient-${bar.key}-${activeChart})`}
+                    radius={[4, 4, 0, 0]}
+                    stackId={chartConfig.showStacked ? 'stack' : undefined}
                   />
                 ))}
               </ComposedChart>
