@@ -67,7 +67,7 @@ const Micropayments = () => {
                   algo: parseFloat(cols[1]) || 0,
                   stable: parseFloat(cols[2]) || 0,
                   hafn: parseFloat(cols[6]) || 0,
-                  total: parseFloat(cols[3]) || 0
+                  total: parseFloat(cols[7]) || 0
                 };
               }
 

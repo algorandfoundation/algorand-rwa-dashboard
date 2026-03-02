@@ -7,7 +7,7 @@ import Footer from '../Footer/Footer';
 
 const tabs = [
     { name: 'Overview', path: '/' },
-    { name: 'Micropayments', path: '/micropayments' },
+    { name: 'Retail Payments', path: '/micropayments' },
     { name: 'Pera Wallet Card', path: '/pera-wallet-card' },
     { name: 'Stablecoins', path: '/stablecoins' },
     { name: 'Commodities', path: '/commodities' },
